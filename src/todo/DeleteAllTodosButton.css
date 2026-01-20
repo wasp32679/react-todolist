@@ -1,0 +1,12 @@
+.delete-all-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.delete-btn {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.delete-btn:hover {
+  background-color: rgb(253, 58, 58);
+}
