@@ -1,12 +1,29 @@
 import './App.css';
+import TodoInputs from './form/TodoInputs';
+import AddTodoBtn from './form/AddTodoFormButton';
+import OpenAddTodoFormBtn from './todo/OpenAddTodoFormButton';
+import Filter from './todo/Filter';
+import SortBy from './todo/Sort';
+import Todolist from './todo/Todolist';
+import DeleteAllTodosBtn from './todo/DeleteAllTodosButton';
 
-const App = () => {
+export default function App() {
   return (
-    <div className="content">
-      <h1>Rsbuild with React</h1>
-      <p>Start building amazing things with Rsbuild.</p>
-    </div>
+    <>
+      <h1>TODO APP</h1>
+      <div className="todo-popup">
+        <TodoInputs />
+        <AddTodoBtn />
+      </div>
+      {/*delete later*/}
+      <p>Add Todo will open the pop up containing above inputs</p>
+      <div>
+        <OpenAddTodoFormBtn />
+        <Filter />
+      </div>
+      <SortBy />
+      <Todolist />
+      <DeleteAllTodosBtn />
+    </>
   );
-};
-
-export default App;
+}
