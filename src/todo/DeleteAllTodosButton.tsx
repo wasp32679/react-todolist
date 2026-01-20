@@ -1,5 +1,8 @@
 import Button from '../components/Button';
+import './DeleteAllTodosButton.css';
 
 export default function DeleteAllTodosBtn() {
-  return <Button title="Delete All" />;
+  return (
+    <Button classname="border small-el delete-btn shadow" title="Delete All" />
+  );
 }

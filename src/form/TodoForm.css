@@ -1,0 +1,21 @@
+#title {
+  flex-grow: 1;
+}
+
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.4;
+  resize: none;
+}
+
+#due-date {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.form-btn {
+  display: flex;
+  padding-top: 20px;
+  justify-content: center;
+}
