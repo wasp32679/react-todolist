@@ -7,7 +7,7 @@ export async function fetchTodosFromApi(): Promise<Todo[]> {
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error('Erreur lors de la récupération du Todo');
+    throw new Error('Error fetching todos');
   }
 
   const data: Todo[] = await response.json();
