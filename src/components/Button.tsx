@@ -1,16 +1,16 @@
 type ButtonProps = {
   title: string;
   type?: 'button' | 'submit';
-  classname: string;
+  className: string;
 };
 
 export default function Button({
   title,
   type = 'button',
-  classname,
+  className,
 }: ButtonProps) {
   return (
-    <button className={classname} type={type}>
+    <button className={className} type={type}>
       {title}
     </button>
   );

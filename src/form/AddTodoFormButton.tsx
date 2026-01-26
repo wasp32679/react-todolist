@@ -5,7 +5,7 @@ export default function AddTodoBtn() {
   return (
     <div className="form-btn">
       <Button
-        classname="border small-el add-btn shadow"
+        className="border small-el add-btn shadow"
         title="Add"
         type="submit"
       />

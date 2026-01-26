@@ -3,6 +3,6 @@ import './DeleteAllTodosButton.css';
 
 export default function DeleteAllTodosBtn() {
   return (
-    <Button classname="border small-el delete-btn shadow" title="Delete All" />
+    <Button className="border small-el delete-btn shadow" title="Delete All" />
   );
 }

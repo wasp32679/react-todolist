@@ -10,7 +10,7 @@ export default function TodoItem() {
       velit commodi eos, accusantium tempora!
       <div>
         <button className="item-btn">
-          <img src={trash} alt="supprimer" className="item-img" />
+          <img src={trash} alt="delete" className="item-img" />
         </button>
       </div>
     </li>
