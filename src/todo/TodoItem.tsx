@@ -1,14 +1,31 @@
 import trash from '../assets/trash-bin.png';
 import './TodoItem.css';
 
-export default function TodoItem() {
+interface TodoItemProps {
+  title: string;
+  content: string;
+  date: string;
+  isDone: boolean;
+}
+
+export default function TodoItem({
+  title,
+  content,
+  date,
+  isDone,
+}: TodoItemProps) {
   return (
     <li className="border shadow">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente iure
-      expedita repellendus ducimus officiis consequatur, veniam facilis
-      exercitationem, quaerat ipsa explicabo voluptates quam unde architecto
-      velit commodi eos, accusantium tempora!
-      <div>
+      <div className="todo-content">
+        <input type="checkbox" checked={isDone} />
+        <div className="text-group">
+          {title}
+          <p>{content}</p>
+        </div>
+        <span className="date">{date}</span>
+      </div>
+
+      <div className="todo-actions">
         <button className="item-btn">
           <img src={trash} alt="delete" className="item-img" />
         </button>
