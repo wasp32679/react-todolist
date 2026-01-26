@@ -1,7 +1,73 @@
-body {
-  margin: 0;
+:root {
+  --color-background: #ebebeb;
+  --color-accent: #ff7e7e;
 }
 
-.item-img {
-width: 20px;
+body {
+  padding: 50px 20vw;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+select {
+  background-color: transparent;
+  padding-left: 20px;
+}
+
+input,
+textarea {
+  border: 0;
+  border-radius: 5px;
+  font-size: large;
+  padding: 5px;
+}
+
+input:focus,
+textarea:focus {
+  border: none;
+  outline: none;
+}
+
+.shadow {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px;
+}
+
+.small-el {
+  height: 3rem;
+  width: 12rem;
+  font-size: large;
+}
+
+.border {
+  border: 0;
+  border-radius: 10px;
+}
+
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+h1 {
+  text-align: center;
+}
+
+.todo-popup {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  max-width: 30rem;
+  gap: 10px;
+  font-size: large;
 }

@@ -9,21 +9,21 @@ import DeleteAllTodosBtn from './todo/DeleteAllTodosButton';
 
 export default function App() {
   return (
-    <>
+    <div className="app-section">
       <h1>TODO APP</h1>
-      <div className="todo-popup">
+      <div className="todo-popup border shadow">
         <TodoInputs />
         <AddTodoBtn />
       </div>
-      {/*delete later*/}
-      <p>Add Todo will open the pop up containing above inputs</p>
-      <div>
+      <div className="top-controls">
         <OpenAddTodoFormBtn />
         <Filter />
       </div>
       <SortBy />
       <Todolist />
-      <DeleteAllTodosBtn />
-    </>
+      <div className="delete-all-wrapper">
+        <DeleteAllTodosBtn />
+      </div>
+    </div>
   );
 }

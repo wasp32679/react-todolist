@@ -1,4 +1,5 @@
 import TodoItem from './TodoItem';
+import './Todolist.css';
 
 export default function Todolist() {
   return (
