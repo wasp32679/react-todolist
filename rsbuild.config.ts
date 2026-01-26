@@ -4,7 +4,7 @@ import { pluginReact } from '@rsbuild/plugin-react';
 // Docs: https://rsbuild.rs/config/
 export default defineConfig({
   output: {
-assetPrefix: "/react-todolist/"
+  assetPrefix: "/react-todolist/",
   },
   plugins: [pluginReact()],
 });
