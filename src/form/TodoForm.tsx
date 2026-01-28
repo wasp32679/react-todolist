@@ -1,5 +1,4 @@
 import './TodoForm.css';
-import Button from '../components/Button';
 import { useActionState } from 'react';
 import { addTodoToApi } from '../api/api';
 import type { TodoFormProps } from '../types/todo';
@@ -39,12 +38,13 @@ export default function TodoForm({ setTodos, setIsOpen }: TodoFormProps) {
         <label htmlFor="due-date">Due-Date :</label>
         <input type="date" id="due-date" className="shadow" name="due_date" />
         <div className="form-btn">
-          <Button
-            className="border small-el add-btn shadow"
-            title="Add"
+          <button
             type="submit"
             disabled={pending}
-          />
+            className="border small-el add-btn shadow"
+          >
+            Add
+          </button>
         </div>
       </form>
       {(pending || state) && (
