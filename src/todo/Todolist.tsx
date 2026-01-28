@@ -1,12 +1,8 @@
 import './Todolist.css';
-import { Suspense, use } from 'react';
-import { fetchTodosFromApi } from '../api/api';
 import TodoItem from './TodoItem';
+import type { TodoListProps } from '../types/todo';
 
-const todoPromise = fetchTodosFromApi();
-
-function TodoDisplay() {
-  const todos = use(todoPromise);
+function TodoDisplay({ todos }: TodoListProps) {
   return (
     <>
       <ul>
@@ -24,12 +20,10 @@ function TodoDisplay() {
   );
 }
 
-export default function Todolist() {
+export default function Todolist({ todos }: TodoListProps) {
   return (
     <>
-      <Suspense fallback={<div className="spinner"></div>}>
-        <TodoDisplay />
-      </Suspense>
+      <TodoDisplay todos={todos} />
     </>
   );
 }
