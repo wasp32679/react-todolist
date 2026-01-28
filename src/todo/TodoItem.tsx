@@ -3,8 +3,8 @@ import './TodoItem.css';
 
 interface TodoItemProps {
   title: string;
-  content: string;
-  date: string;
+  content?: string;
+  date?: string;
   isDone: boolean;
 }
 
@@ -18,10 +18,8 @@ export default function TodoItem({
     <li className="border shadow">
       <div className="todo-content">
         <input type="checkbox" checked={isDone} />
-        <div className="text-group">
-          {title}
-          <p>{content}</p>
-        </div>
+        <p>{title}</p>
+        <p>{content}</p>
         <span className="date">{date}</span>
       </div>
 

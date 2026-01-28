@@ -1,12 +1,9 @@
-#title {
-  flex-grow: 1;
-}
-
 textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: 1.4;
   resize: none;
+  height: 100%;
 }
 
 #due-date {
@@ -18,4 +15,23 @@ textarea {
   display: flex;
   padding-top: 20px;
   justify-content: center;
+}
+
+.form-todo {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  gap: 10px;
+  font-size: large;
+  height: 100%;
+}
+
+.state-text {
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.close-form-btn {
+  padding-bottom: 20px;
+  font-size: inherit;
 }
