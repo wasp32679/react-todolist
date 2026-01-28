@@ -65,7 +65,7 @@ export async function deleteTodoFromApi(todoId:string) {
         throw new Error(`Failed to delete task: ${resp.status}`)
       }
   } catch (error) {
-      console.error(error)
+      throw new Error(`Error ${error}`)
  }
 }
 

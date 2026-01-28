@@ -25,8 +25,9 @@ export default function TodoItem({
     try {
       await deleteTodoFromApi(todoId);
       setTodos((prevTodos) => prevTodos.filter((t) => t.id !== todoId));
-    } catch {
-      return 'Error while deleting todo.';
+    } catch (error) {
+      console.error('Error while deleting todo:', error);
+      alert('Failed to delete todo. Please try again.');
     }
   };
 
