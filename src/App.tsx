@@ -22,7 +22,7 @@ export default function App() {
         <Filter />
       </div>
       <SortBy />
-      <Todolist todos={todos} />
+      <Todolist todos={todos} setTodos={setTodos} />
       <div className="delete-all-wrapper">
         <DeleteAllTodosBtn />
       </div>

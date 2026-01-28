@@ -21,7 +21,7 @@ export async function addTodoToApi(data: FormData): Promise<ReadTodo> {
   const description = data.get("description")
   const due_date = data.get("due_date")
 
-  await delay(1000)
+  await delay(0)
 
     try {
     const resp = await fetch(url, {
@@ -51,5 +51,21 @@ export async function addTodoToApi(data: FormData): Promise<ReadTodo> {
     console.error(error)
     throw new Error("impossible to create the todo")
   }
+}
+
+export async function deleteTodoFromApi(todoId:string) {
+  try {
+    const resp = await fetch(`${url}?id=eq.${todoId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json',
+        }
+    })
+     if (!resp.ok) {
+        throw new Error(`Failed to delete task: ${resp.status}`)
+      }
+  } catch (error) {
+      throw new Error(`Error ${error}`)
+ }
 }
 

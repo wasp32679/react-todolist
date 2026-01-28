@@ -7,11 +7,10 @@ export interface CreateTodo {
   done: boolean;
 }
 
-export type ReadTodo = CreateTodo & { id: number; }
-
-export type TodoListProps = { todos: ReadTodo[]; }
+export type ReadTodo = CreateTodo & { id: string; }
 
 export type OpenAddTodoFormBtnProps =   { setTodos: Dispatch<SetStateAction<ReadTodo[]>>; } 
 
-export type TodoFormProps = OpenAddTodoFormBtnProps & { setIsOpen: (b: boolean) => void; }
+export type TodoListProps = OpenAddTodoFormBtnProps & { todos: ReadTodo[]; }
 
+export type TodoFormProps = OpenAddTodoFormBtnProps & { setIsOpen: (b: boolean) => void; }
