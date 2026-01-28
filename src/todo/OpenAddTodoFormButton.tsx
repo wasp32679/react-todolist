@@ -1,4 +1,3 @@
-import Button from '../components/Button';
 import './OpenAddTodoFormButton.css';
 import TodoForm from '../form/TodoForm';
 import { useState } from 'react';
@@ -13,11 +12,12 @@ export default function OpenAddTodoFormBtn({
 
   return (
     <>
-      <Button
+      <button
         className="border add-btn small-el shadow"
-        title="Add Task"
         onClick={() => setIsOpen(true)}
-      />
+      >
+        Add Task
+      </button>
 
       {isOpen &&
         createPortal(
