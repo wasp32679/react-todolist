@@ -8,16 +8,15 @@ import type { OpenAddTodoFormBtnProps } from '../types/todo';
 
 export default function OpenAddTodoFormBtn({
   setTodos,
-  todos,
 }: OpenAddTodoFormBtnProps) {
-  const [isOpen, setisOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <Button
         className="border add-btn small-el shadow"
         title="Add Task"
-        onClick={() => setisOpen(true)}
+        onClick={() => setIsOpen(true)}
       />
 
       {isOpen &&
@@ -25,14 +24,10 @@ export default function OpenAddTodoFormBtn({
           <div>
             <Overlay />
             <div className="form-wrapper top-index border shadow">
-              <TodoForm
-                setIsOpen={setisOpen}
-                setTodos={setTodos}
-                todos={todos}
-              />
+              <TodoForm setIsOpen={setIsOpen} setTodos={setTodos} />
               <button
                 className="border close-form-btn"
-                onClick={() => setisOpen(false)}
+                onClick={() => setIsOpen(false)}
               >
                 Close
               </button>

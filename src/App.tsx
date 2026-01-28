@@ -18,7 +18,7 @@ export default function App() {
     <div className="app-section">
       <h1>TODO APP</h1>
       <div className="top-controls">
-        <OpenAddTodoFormBtn setTodos={setTodos} todos={todos} />
+        <OpenAddTodoFormBtn setTodos={setTodos} />
         <Filter />
       </div>
       <SortBy />

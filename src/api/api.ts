@@ -1,7 +1,6 @@
 import type {  ReadTodo } from '../types/todo';
 
 const url = 'https://api.todos.in.jt-lab.ch/todos';
-const arrOfTask: ReadTodo[] = []
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -19,10 +18,10 @@ export async function fetchTodosFromApi(): Promise<ReadTodo[]> {
 
 export async function addTodoToApi(data: FormData): Promise<ReadTodo> {
   const title = data.get("title")
-  const descritption = data.get("description")
+  const description = data.get("description")
   const due_date = data.get("due_date")
 
-  await delay(500)
+  await delay(1000)
 
     try {
     const resp = await fetch(url, {
@@ -33,7 +32,7 @@ export async function addTodoToApi(data: FormData): Promise<ReadTodo> {
       },
       body: JSON.stringify({
         title: title,
-        content: descritption,
+        content: description,
         due_date: due_date ? due_date : null, 
         done: false,
       }),
@@ -44,10 +43,8 @@ export async function addTodoToApi(data: FormData): Promise<ReadTodo> {
       
     }
 
-    const Data: ReadTodo[] = await resp.json()
-    const newTask = Data[0]
-
-    arrOfTask.push(newTask)
+    const data: ReadTodo[] = await resp.json()
+    const newTask = data[0]
 
     return newTask
   } catch (error) {

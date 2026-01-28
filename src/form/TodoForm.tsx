@@ -48,7 +48,9 @@ export default function TodoForm({ setTodos, setIsOpen }: TodoFormProps) {
         </div>
       </form>
       {(pending || state) && (
-        <div className="state-text">{pending ? '' : state}</div>
+        <div className="state-text">
+          {pending ? <div className="spinner"></div> : state}
+        </div>
       )}
     </>
   );
