@@ -2,7 +2,7 @@ import './Todolist.css';
 import TodoItem from './TodoItem';
 import type { TodoListProps } from '../types/todo';
 
-function TodoDisplay({ todos }: TodoListProps) {
+function TodoDisplay({ todos, setTodos }: TodoListProps) {
   return (
     <>
       <ul>
@@ -13,6 +13,8 @@ function TodoDisplay({ todos }: TodoListProps) {
             content={t.content}
             date={t.due_date}
             isDone={t.done}
+            setTodos={setTodos}
+            todoId={t.id}
           />
         ))}
       </ul>
@@ -20,10 +22,10 @@ function TodoDisplay({ todos }: TodoListProps) {
   );
 }
 
-export default function Todolist({ todos }: TodoListProps) {
+export default function Todolist({ todos, setTodos }: TodoListProps) {
   return (
     <>
-      <TodoDisplay todos={todos} />
+      <TodoDisplay todos={todos} setTodos={setTodos} />
     </>
   );
 }
