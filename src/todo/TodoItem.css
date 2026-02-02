@@ -8,12 +8,6 @@ li {
   text-align: left;
 }
 
-.todo-content {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
 .item-img {
   width: 20px;
 }
@@ -21,4 +15,36 @@ li {
 .item-btn {
   border: 0;
   background-color: transparent;
+}
+
+.placeholder {
+  opacity: 0.5;
+}
+
+.todo-item {
+  display: grid;
+  grid-template-columns: 20px 4fr 1fr 40px;
+  gap: 1rem;
+  word-break: break-all;
+}
+
+.todo-text {
+  min-width: 0;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+.todo-item textarea {
+  width: 100%;
+}
+
+.todo-item input,
+.todo-item textarea {
+  border: 1.5px solid gray;
+}
+
+.title-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

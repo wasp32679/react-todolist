@@ -35,3 +35,9 @@ textarea {
   padding-bottom: 20px;
   font-size: inherit;
 }
+
+.form-todo input,
+.form-todo textarea {
+  padding: 5px;
+  border: none;
+}

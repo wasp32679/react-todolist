@@ -1,8 +1,9 @@
 import trash from '../assets/trash-bin.png';
 import './TodoItem.css';
 import type { ReadTodo } from '../types/todo';
-import type { Dispatch, SetStateAction } from 'react';
-import { deleteTodoFromApi } from '../api/api';
+import { useState, type Dispatch, type SetStateAction } from 'react';
+import { deleteTodoFromApi, editTodoInApi } from '../api/api';
+import Editable from '../components/Editable';
 
 interface TodoItemProps {
   title: string;
@@ -31,20 +32,79 @@ export default function TodoItem({
     }
   };
 
+  const [titleValue, setTitleValue] = useState(title);
+  const [descValue, setDescValue] = useState(content);
+  const [doneValue, setDoneValue] = useState(isDone);
+  const [dueDateValue, setDueDateValue] = useState(date);
+
+  const handleToggle = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.checked;
+    setDoneValue(newValue);
+    await editTodoInApi(todoId, { done: newValue });
+  };
+
   return (
-    <li className="border shadow">
-      <div className="todo-content">
-        <input type="checkbox" checked={isDone} />
-        <p>{title}</p>
-        <p>{content}</p>
-        <span className="date">{date}</span>
+    <li className="border shadow todo-item">
+      <input type="checkbox" checked={doneValue} onChange={handleToggle} />
+
+      <div className="title-desc">
+        <Editable text={titleValue} canClose={titleValue.trim() !== ''}>
+          <input
+            autoFocus
+            type="text"
+            value={titleValue}
+            onChange={(e) => {
+              setTitleValue(e.target.value);
+            }}
+            onBlur={() => editTodoInApi(todoId, { title: titleValue })}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.currentTarget.blur();
+              }
+            }}
+          ></input>
+        </Editable>
+        <Editable
+          text={descValue}
+          className="description"
+          placeholder="Click to add description"
+        >
+          <textarea
+            autoFocus
+            onBlur={() => editTodoInApi(todoId, { content: descValue })}
+            value={descValue ?? ''}
+            onChange={(e) => setDescValue(e.target.value)}
+            onFocus={(e) => {
+              const val = e.target.value;
+              e.target.setSelectionRange(val.length, val.length);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.currentTarget.blur();
+              }
+            }}
+          ></textarea>
+        </Editable>
       </div>
 
-      <div className="todo-actions">
-        <button className="item-btn" onClick={deleteTodo}>
-          <img src={trash} alt="delete" className="item-img" />
-        </button>
-      </div>
+      <Editable text={dueDateValue} placeholder="Click to add due date">
+        <input
+          autoFocus
+          type="date"
+          value={dueDateValue ?? ''}
+          onChange={(e) => setDueDateValue(e.target.value)}
+          onBlur={() => editTodoInApi(todoId, { due_date: dueDateValue })}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.currentTarget.blur();
+            }
+          }}
+        ></input>
+      </Editable>
+
+      <button className="item-btn" onClick={deleteTodo}>
+        <img src={trash} alt="delete" className="item-img" />
+      </button>
     </li>
   );
 }
