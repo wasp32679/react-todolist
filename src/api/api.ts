@@ -32,7 +32,7 @@ export async function addTodoToApi(data: FormData): Promise<ReadTodo> {
       body: JSON.stringify({
         title: title,
         content: description,
-        due_date: due_date ?? null,
+        due_date: due_date ? due_date : null,
         done: false,
       }),
     });

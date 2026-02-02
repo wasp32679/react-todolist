@@ -41,6 +41,33 @@ export default function TodoItem({
     const newValue = e.target.checked;
     setDoneValue(newValue);
     await editTodoInApi(todoId, { done: newValue });
+    setTodos((prevTodos) =>
+      prevTodos.map((t) => {
+        if (t.id === todoId) {
+          return { ...t, ...{ done: newValue } };
+        } else {
+          return t;
+        }
+      }),
+    );
+  };
+
+  const handleBlur = async (updates: {
+    title?: string;
+    content?: string;
+    due_date?: string;
+    done?: boolean;
+  }) => {
+    await editTodoInApi(todoId, updates);
+    setTodos((prevTodos) =>
+      prevTodos.map((t) => {
+        if (t.id === todoId) {
+          return { ...t, ...updates };
+        } else {
+          return t;
+        }
+      }),
+    );
   };
 
   return (
@@ -56,7 +83,7 @@ export default function TodoItem({
             onChange={(e) => {
               setTitleValue(e.target.value);
             }}
-            onBlur={() => editTodoInApi(todoId, { title: titleValue })}
+            onBlur={() => handleBlur({ title: titleValue })}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.currentTarget.blur();
@@ -71,7 +98,7 @@ export default function TodoItem({
         >
           <textarea
             autoFocus
-            onBlur={() => editTodoInApi(todoId, { content: descValue })}
+            onBlur={() => handleBlur({ content: descValue })}
             value={descValue ?? ''}
             onChange={(e) => setDescValue(e.target.value)}
             onFocus={(e) => {
@@ -93,7 +120,7 @@ export default function TodoItem({
           type="date"
           value={dueDateValue ?? ''}
           onChange={(e) => setDueDateValue(e.target.value)}
-          onBlur={() => editTodoInApi(todoId, { due_date: dueDateValue })}
+          onBlur={() => handleBlur({ due_date: dueDateValue })}
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.currentTarget.blur();
