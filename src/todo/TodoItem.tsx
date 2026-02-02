@@ -43,20 +43,6 @@ export default function TodoItem({
     await editTodoInApi(todoId, { done: newValue });
   };
 
-  const handleKeyDown = async (
-    event: React.KeyboardEvent<HTMLElement>,
-    updates: {
-      title?: string;
-      content?: string;
-      due_date?: string;
-      done?: boolean;
-    },
-  ) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      await editTodoInApi(todoId, updates);
-    }
-  };
-
   return (
     <li className="border shadow todo-item">
       <input type="checkbox" checked={doneValue} onChange={handleToggle} />
@@ -71,7 +57,11 @@ export default function TodoItem({
               setTitleValue(e.target.value);
             }}
             onBlur={() => editTodoInApi(todoId, { title: titleValue })}
-            onKeyDown={(e) => handleKeyDown(e, { title: titleValue })}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.currentTarget.blur();
+              }
+            }}
           ></input>
         </Editable>
         <Editable
@@ -88,7 +78,11 @@ export default function TodoItem({
               const val = e.target.value;
               e.target.setSelectionRange(val.length, val.length);
             }}
-            onKeyDown={(e) => handleKeyDown(e, { content: descValue })}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.currentTarget.blur();
+              }
+            }}
           ></textarea>
         </Editable>
       </div>
@@ -97,10 +91,14 @@ export default function TodoItem({
         <input
           autoFocus
           type="date"
-          value={dueDateValue}
+          value={dueDateValue ?? ''}
           onChange={(e) => setDueDateValue(e.target.value)}
           onBlur={() => editTodoInApi(todoId, { due_date: dueDateValue })}
-          onKeyDown={(e) => handleKeyDown(e, { due_date: dueDateValue })}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.currentTarget.blur();
+            }
+          }}
         ></input>
       </Editable>
 

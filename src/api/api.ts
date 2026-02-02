@@ -32,7 +32,7 @@ export async function addTodoToApi(data: FormData): Promise<ReadTodo> {
       body: JSON.stringify({
         title: title,
         content: description,
-        due_date: due_date ? due_date : null,
+        due_date: due_date ?? null,
         done: false,
       }),
     });
@@ -94,6 +94,7 @@ export async function editTodoInApi(
 
     return updatedTodo;
   } catch (error) {
-    throw new Error(`Error ${error}`);
+    console.error('Failed to edit todo:', error);
+    throw new Error('Failed to edit todo');
   }
 }
