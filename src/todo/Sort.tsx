@@ -15,7 +15,7 @@ export default function SortBy({ sortValue }: SortProps) {
         id="sort-select"
         className="border small-el shadow"
       >
-        <option>Sort</option>
+        <option value={''}>Sort</option>
         <option value={'name'}>Name</option>
         <option value={'due-date'}>Due date</option>
       </select>

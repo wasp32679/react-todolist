@@ -15,7 +15,7 @@ export default function Filter({ filterValue }: FilterProps) {
         id="filter-select"
         className="border small-el shadow"
       >
-        <option>All</option>
+        <option value={''}>All</option>
         <option value={'undone'}>Undone</option>
         <option value={'done'}>Done</option>
       </select>

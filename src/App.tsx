@@ -4,7 +4,7 @@ import Filter from './todo/Filter';
 import SortBy from './todo/Sort';
 import Todolist from './todo/Todolist';
 import DeleteAllTodosBtn from './todo/DeleteAllTodosButton';
-import { use, useState } from 'react';
+import { use, useMemo, useState } from 'react';
 import type { ReadTodo } from './types/todo';
 import { fetchTodosFromApi } from './api/api';
 
@@ -16,26 +16,29 @@ export default function App() {
   const [sort, setSort] = useState('');
   const [filter, setFilter] = useState('');
 
-  let sortedTodos = [...todos];
+  const sortedTodos = useMemo(() => {
+    let filteredTodos = todos;
+    if (filter === 'undone') {
+      filteredTodos = todos.filter((t) => !t.done);
+    } else if (filter === 'done') {
+      filteredTodos = todos.filter((t) => t.done);
+    }
 
-  if (sort === 'name') {
-    sortedTodos.sort((a, b) => a.title.localeCompare(b.title));
-  }
-  if (sort === 'due-date') {
-    sortedTodos.sort((a, b) => {
-      if (!a.due_date && !b.due_date) return 0;
-      if (!a.due_date) return 1;
-      if (!b.due_date) return -1;
-      return a.due_date > b.due_date ? 1 : -1;
-    });
-  }
+    const sorted = [...filteredTodos];
 
-  if (filter === 'undone') {
-    sortedTodos = sortedTodos.filter((t) => !t.done);
-  }
-  if (filter === 'done') {
-    sortedTodos = sortedTodos.filter((t) => t.done);
-  }
+    if (sort === 'name') {
+      sorted.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sort === 'due-date') {
+      sorted.sort((a, b) => {
+        if (!a.due_date && !b.due_date) return 0;
+        if (!a.due_date) return 1;
+        if (!b.due_date) return -1;
+        return a.due_date.localeCompare(b.due_date);
+      });
+    }
+
+    return sorted;
+  }, [todos, sort, filter]);
 
   const handleSortChange = (newSortValue: string) => {
     setSort(newSortValue);
