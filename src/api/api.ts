@@ -1,11 +1,10 @@
-import type {  ReadTodo } from '../types/todo';
+import type { ReadTodo } from '../types/todo';
 
 const url = 'https://api.todos.in.jt-lab.ch/todos';
 
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function fetchTodosFromApi(): Promise<ReadTodo[]> {
-
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -17,13 +16,13 @@ export async function fetchTodosFromApi(): Promise<ReadTodo[]> {
 }
 
 export async function addTodoToApi(data: FormData): Promise<ReadTodo> {
-  const title = data.get("title")
-  const description = data.get("description")
-  const due_date = data.get("due_date")
+  const title = data.get('title');
+  const description = data.get('description');
+  const due_date = data.get('due_date');
 
-  await delay(0)
+  await delay(0);
 
-    try {
+  try {
     const resp = await fetch(url, {
       method: 'POST',
       headers: {
@@ -33,39 +32,68 @@ export async function addTodoToApi(data: FormData): Promise<ReadTodo> {
       body: JSON.stringify({
         title: title,
         content: description,
-        due_date: due_date ? due_date : null, 
+        due_date: due_date ? due_date : null,
         done: false,
       }),
-    })
+    });
 
     if (!resp.ok) {
-      throw new Error(`HTTP Error Status: ${resp.status}`)
-      
+      throw new Error(`HTTP Error Status: ${resp.status}`);
     }
 
-    const data: ReadTodo[] = await resp.json()
-    const newTask = data[0]
+    const data: ReadTodo[] = await resp.json();
+    const newTask = data[0];
 
-    return newTask
+    return newTask;
   } catch (error) {
-    console.error(error)
-    throw new Error("impossible to create the todo")
+    console.error(error);
+    throw new Error('impossible to create the todo');
   }
 }
 
-export async function deleteTodoFromApi(todoId:string) {
+export async function deleteTodoFromApi(todoId: string) {
   try {
     const resp = await fetch(`${url}?id=eq.${todoId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-type': 'application/json',
-        }
-    })
-     if (!resp.ok) {
-        throw new Error(`Failed to delete task: ${resp.status}`)
-      }
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+      },
+    });
+    if (!resp.ok) {
+      throw new Error(`Failed to delete task: ${resp.status}`);
+    }
   } catch (error) {
-      throw new Error(`Error ${error}`)
- }
+    throw new Error(`Error ${error}`);
+  }
 }
 
+export async function editTodoInApi(
+  todoId: string,
+  updates: {
+    title?: string;
+    content?: string;
+    due_date?: string;
+    done?: boolean;
+  },
+) {
+  try {
+    const resp = await fetch(`${url}?id=eq.${todoId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-type': 'application/json',
+        Prefer: 'return=representation',
+      },
+      body: JSON.stringify(updates),
+    });
+    if (!resp.ok) {
+      throw new Error(`Failed to edit task: ${resp.status}`);
+    }
+
+    const data: ReadTodo[] = await resp.json();
+    const updatedTodo = data[0];
+
+    return updatedTodo;
+  } catch (error) {
+    throw new Error(`Error ${error}`);
+  }
+}
