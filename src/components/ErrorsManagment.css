@@ -1,0 +1,28 @@
+.error-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  font-size: large;
+  border-radius: 20px;
+  color: red;
+  background-color: white;
+  border: 2px solid red;
+  width: 30vw;
+}
+
+.error-div h3 {
+  margin: 10px;
+}
+
+.error-div button {
+  border-color: red;
+}
+
+.error-index {
+  z-index: 100;
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

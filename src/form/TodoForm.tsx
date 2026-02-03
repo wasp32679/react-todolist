@@ -2,8 +2,10 @@ import './TodoForm.css';
 import { useActionState } from 'react';
 import { addTodoToApi } from '../api/api';
 import type { TodoFormProps } from '../types/todo';
+import { useErrorBoundary } from 'react-error-boundary';
 
 export default function TodoForm({ setTodos, setIsOpen }: TodoFormProps) {
+  const { showBoundary } = useErrorBoundary();
   const [state, action, pending] = useActionState(
     async (_: unknown, formData: FormData) => {
       try {
@@ -11,8 +13,8 @@ export default function TodoForm({ setTodos, setIsOpen }: TodoFormProps) {
         setTodos((prevTodos) => [...prevTodos, newTodo]);
         setIsOpen(false);
         return 'Todo added !';
-      } catch {
-        return 'Error while adding todo.';
+      } catch (err) {
+        showBoundary(err);
       }
     },
     null,

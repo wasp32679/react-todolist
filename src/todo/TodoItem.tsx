@@ -12,6 +12,8 @@ interface TodoItemProps {
   isDone: boolean;
   setTodos: Dispatch<SetStateAction<ReadTodo[]>>;
   todoId: string;
+  errorMsg: unknown;
+  setErrorMsg: Dispatch<SetStateAction<unknown>>;
 }
 
 export default function TodoItem({
@@ -21,14 +23,14 @@ export default function TodoItem({
   isDone,
   todoId,
   setTodos,
+  setErrorMsg,
 }: TodoItemProps) {
   const deleteTodo = async () => {
     try {
       await deleteTodoFromApi(todoId);
       setTodos((prevTodos) => prevTodos.filter((t) => t.id !== todoId));
-    } catch (error) {
-      console.error('Error while deleting todo:', error);
-      alert('Failed to delete todo. Please try again.');
+    } catch (err) {
+      setErrorMsg(err);
     }
   };
 
@@ -58,16 +60,20 @@ export default function TodoItem({
     due_date?: string;
     done?: boolean;
   }) => {
-    await editTodoInApi(todoId, updates);
-    setTodos((prevTodos) =>
-      prevTodos.map((t) => {
-        if (t.id === todoId) {
-          return { ...t, ...updates };
-        } else {
-          return t;
-        }
-      }),
-    );
+    try {
+      await editTodoInApi(todoId, updates);
+      setTodos((prevTodos) =>
+        prevTodos.map((t) => {
+          if (t.id === todoId) {
+            return { ...t, ...updates };
+          } else {
+            return t;
+          }
+        }),
+      );
+    } catch (err) {
+      setErrorMsg(err);
+    }
   };
 
   return (

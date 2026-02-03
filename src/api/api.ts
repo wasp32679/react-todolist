@@ -38,7 +38,7 @@ export async function addTodoToApi(data: FormData): Promise<ReadTodo> {
     });
 
     if (!resp.ok) {
-      throw new Error(`HTTP Error Status: ${resp.status}`);
+      throw new Error(`Impossible to create the task: ${resp.status}`);
     }
 
     const data: ReadTodo[] = await resp.json();
@@ -47,7 +47,7 @@ export async function addTodoToApi(data: FormData): Promise<ReadTodo> {
     return newTask;
   } catch (error) {
     console.error(error);
-    throw new Error('impossible to create the todo');
+    throw error;
   }
 }
 
@@ -63,7 +63,8 @@ export async function deleteTodoFromApi(todoId: string) {
       throw new Error(`Failed to delete task: ${resp.status}`);
     }
   } catch (error) {
-    throw new Error(`Error ${error}`);
+    console.error(error);
+    throw error;
   }
 }
 
@@ -85,16 +86,16 @@ export async function editTodoInApi(
       },
       body: JSON.stringify(updates),
     });
-    if (!resp.ok) {
-      throw new Error(`Failed to edit task: ${resp.status}`);
-    }
+    //if (!resp.ok) {
+    throw new Error(`Failed to edit task ${resp.status}`);
+    //}
 
     const data: ReadTodo[] = await resp.json();
     const updatedTodo = data[0];
 
     return updatedTodo;
   } catch (error) {
-    console.error('Failed to edit todo:', error);
-    throw new Error('Failed to edit todo');
+    console.error(error);
+    throw error;
   }
 }
