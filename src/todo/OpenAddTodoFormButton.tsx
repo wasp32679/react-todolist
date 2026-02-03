@@ -27,7 +27,7 @@ export default function OpenAddTodoFormBtn({
             <ErrorBoundary FallbackComponent={ErrorFallback}>
               <Overlay />
               <div className="form-wrapper form-index border shadow">
-                <TodoForm setIsOpen={setIsOpen} setTodos={setTodos} />,
+                <TodoForm setIsOpen={setIsOpen} setTodos={setTodos} />
                 <button
                   className="border close-form-btn"
                   onClick={() => setIsOpen(false)}

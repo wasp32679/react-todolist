@@ -47,7 +47,7 @@ export async function addTodoToApi(data: FormData): Promise<ReadTodo> {
     return newTask;
   } catch (error) {
     console.error(error);
-    throw new Error(`${error}`);
+    throw error;
   }
 }
 
@@ -64,7 +64,7 @@ export async function deleteTodoFromApi(todoId: string) {
     }
   } catch (error) {
     console.error(error);
-    throw new Error(` ${error}`);
+    throw error;
   }
 }
 
@@ -86,16 +86,16 @@ export async function editTodoInApi(
       },
       body: JSON.stringify(updates),
     });
-    if (!resp.ok) {
-      throw new Error(`Failed to edit task ${resp.status}`);
-    }
+    //if (!resp.ok) {
+    throw new Error(`Failed to edit task ${resp.status}`);
+    //}
 
     const data: ReadTodo[] = await resp.json();
     const updatedTodo = data[0];
 
     return updatedTodo;
   } catch (error) {
-    console.error(`${error}`);
-    throw new Error(`${error}`);
+    console.error(error);
+    throw error;
   }
 }
