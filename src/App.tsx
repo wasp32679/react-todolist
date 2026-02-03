@@ -7,6 +7,8 @@ import DeleteAllTodosBtn from './todo/DeleteAllTodosButton';
 import { use, useMemo, useState } from 'react';
 import type { ReadTodo } from './types/todo';
 import { fetchTodosFromApi } from './api/api';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from './components/ErrorsManagment';
 
 const todoPromise = fetchTodosFromApi();
 
@@ -49,17 +51,19 @@ export default function App() {
   };
 
   return (
-    <div className="app-section">
-      <h1>TODO APP</h1>
-      <div className="top-controls">
-        <OpenAddTodoFormBtn setTodos={setTodos} />
-        <Filter filterValue={handleFilterChange} />
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <div className="app-section">
+        <h1>TODO APP</h1>
+        <div className="top-controls">
+          <OpenAddTodoFormBtn setTodos={setTodos} />
+          <Filter filterValue={handleFilterChange} />
+        </div>
+        <SortBy sortValue={handleSortChange} />
+        <Todolist todos={sortedTodos} setTodos={setTodos} />
+        <div className="delete-all-wrapper">
+          <DeleteAllTodosBtn />
+        </div>
       </div>
-      <SortBy sortValue={handleSortChange} />
-      <Todolist todos={sortedTodos} setTodos={setTodos} />
-      <div className="delete-all-wrapper">
-        <DeleteAllTodosBtn />
-      </div>
-    </div>
+    </ErrorBoundary>
   );
 }
