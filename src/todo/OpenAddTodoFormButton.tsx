@@ -22,7 +22,7 @@ export default function OpenAddTodoFormBtn() {
         createPortal(
           <div>
             <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Overlay />
+              <Overlay onClick={() => setIsOpen(false)} />
               <div className="form-wrapper form-index border shadow">
                 <TodoForm setIsOpen={setIsOpen} />
                 <button
