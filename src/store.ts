@@ -56,16 +56,9 @@ export const useStore = create<TodoState>((set) => ({
 
   editTodo: async (todoId, updates) => {
     try {
-      await editTodoInApi(todoId, updates);
-
+      const updatedTodo = await editTodoInApi(todoId, updates);
       set((state) => ({
-        todos: state.todos.map((t) => {
-          if (t.id === todoId) {
-            return { ...t, ...updates };
-          } else {
-            return t;
-          }
-        }),
+        todos: state.todos.map((t) => (t.id === todoId ? updatedTodo : t)),
       }));
     } catch (err) {
       set({ errorMsg: err });
@@ -95,12 +88,10 @@ export const getSortedTodos = (state: TodoState) => {
     filteredTodos = filteredTodos.filter((t) => t.done);
   }
 
-  const sorted = [...filteredTodos];
-
   if (state.sort === 'name') {
-    sorted.sort((a, b) => a.title.localeCompare(b.title));
+    filteredTodos.sort((a, b) => a.title.localeCompare(b.title));
   } else if (state.sort === 'due-date') {
-    sorted.sort((a, b) => {
+    filteredTodos.sort((a, b) => {
       if (!a.due_date && !b.due_date) return 0;
       if (!a.due_date) return 1;
       if (!b.due_date) return -1;
@@ -108,5 +99,5 @@ export const getSortedTodos = (state: TodoState) => {
     });
   }
 
-  return sorted;
+  return filteredTodos;
 };
