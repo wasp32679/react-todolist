@@ -1,9 +1,8 @@
-import { useState, type HTMLInputTypeAttribute, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 
 interface EditableProps {
   text?: string;
   children: ReactNode;
-  type?: HTMLInputTypeAttribute;
   placeholder?: string;
   className?: string;
   canClose?: boolean;

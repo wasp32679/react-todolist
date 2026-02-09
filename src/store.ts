@@ -16,7 +16,6 @@ interface TodoState {
   resetTodoPromise: () => void;
   setSort: (sort: string) => void;
   setFilter: (filter: string) => void;
-  loadTodos: () => Promise<void>;
   addTodo: (formData: FormData) => Promise<void>;
   editTodo: (todoId: string, updates: Partial<ReadTodo>) => Promise<void>;
   deleteTodo: (todoId: string) => Promise<void>;
@@ -35,16 +34,6 @@ export const useStore = create<TodoState>((set) => ({
   setFilter: (filter) => set({ filter }),
   errorMsg: null,
   setErrorMsg: (error) => set({ errorMsg: error }),
-
-  loadTodos: async () => {
-    try {
-      const initialTodos = await fetchTodosFromApi();
-      set({ todos: initialTodos });
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  },
 
   addTodo: async (formData) => {
     const newTodo = await addTodoToApi(formData);
