@@ -1,5 +1,10 @@
+import React from 'react';
 import './Overlay.css';
 
-export default function Overlay() {
-  return <div className="overlay"></div>;
+interface OverlayProps {
+  onClick: React.MouseEventHandler<HTMLDivElement>;
+}
+
+export default function Overlay({ onClick }: OverlayProps) {
+  return <div className="overlay" onClick={onClick}></div>;
 }

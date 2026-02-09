@@ -3,13 +3,10 @@ import TodoForm from '../form/TodoForm';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import Overlay from '../components/Overlay';
-import type { OpenAddTodoFormBtnProps } from '../types/todo';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../components/ErrorsManagment';
 
-export default function OpenAddTodoFormBtn({
-  setTodos,
-}: OpenAddTodoFormBtnProps) {
+export default function OpenAddTodoFormBtn() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -25,9 +22,9 @@ export default function OpenAddTodoFormBtn({
         createPortal(
           <div>
             <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Overlay />
+              <Overlay onClick={() => setIsOpen(false)} />
               <div className="form-wrapper form-index border shadow">
-                <TodoForm setIsOpen={setIsOpen} setTodos={setTodos} />
+                <TodoForm setIsOpen={setIsOpen} />
                 <button
                   className="border close-form-btn"
                   onClick={() => setIsOpen(false)}

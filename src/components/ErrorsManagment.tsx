@@ -12,7 +12,7 @@ export default function ErrorFallback({
       <h3>Oops...</h3>
       <pre>{errorMessage}</pre>
       <button onClick={resetErrorBoundary} className="shadow">
-        Try again
+        Close
       </button>
     </div>
   );

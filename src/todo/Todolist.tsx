@@ -1,11 +1,17 @@
 import './Todolist.css';
 import TodoItem from './TodoItem';
-import type { TodoListProps } from '../types/todo';
 import ErrorFallback from '../components/ErrorsManagment';
-import { useState } from 'react';
+import { getSortedTodos, useStore } from '../store';
+import { useShallow } from 'zustand/shallow';
 
-function TodoDisplay({ todos, setTodos }: TodoListProps) {
-  const [errorMsg, setErrorMsg] = useState<unknown>(null);
+function TodoDisplay() {
+  const { errorMsg, setErrorMsg } = useStore(
+    useShallow((state) => ({
+      errorMsg: state.errorMsg,
+      setErrorMsg: state.setErrorMsg,
+    })),
+  );
+  const sortedTodos = useStore(useShallow(getSortedTodos));
   function onReset() {
     setErrorMsg(null);
   }
@@ -16,17 +22,15 @@ function TodoDisplay({ todos, setTodos }: TodoListProps) {
         <ErrorFallback error={errorMsg} resetErrorBoundary={onReset} />
       )}
       <ul>
-        {todos.map((t) => (
+        {sortedTodos.map((t) => (
           <TodoItem
             key={t.id}
             title={t.title}
             content={t.content}
-            date={t.due_date}
+            date={t.due_date === null ? '' : t.due_date}
             isDone={t.done}
-            setTodos={setTodos}
             todoId={t.id}
             errorMsg={errorMsg}
-            setErrorMsg={setErrorMsg}
           />
         ))}
       </ul>
@@ -34,10 +38,10 @@ function TodoDisplay({ todos, setTodos }: TodoListProps) {
   );
 }
 
-export default function Todolist({ todos, setTodos }: TodoListProps) {
+export default function Todolist() {
   return (
     <>
-      <TodoDisplay todos={todos} setTodos={setTodos} />
+      <TodoDisplay />
     </>
   );
 }
