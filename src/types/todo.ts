@@ -3,7 +3,7 @@ import type { Dispatch, SetStateAction } from 'react';
 export interface CreateTodo {
   title: string;
   content?: string;
-  due_date?: string;
+  due_date?: string | null;
   done: boolean;
 }
 
@@ -15,7 +15,7 @@ export type OpenAddTodoFormBtnProps = {
 
 export type TodoListProps = OpenAddTodoFormBtnProps & { todos: ReadTodo[] };
 
-export type TodoFormProps = OpenAddTodoFormBtnProps & {
+export type TodoFormProps = {
   setIsOpen: (b: boolean) => void;
 };
 

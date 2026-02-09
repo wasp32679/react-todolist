@@ -1,16 +1,13 @@
 import './Filter.css';
-import type { FilterProps } from '../types/todo';
+import { useStore } from '../store';
 
-export default function Filter({ filterValue }: FilterProps) {
-  const setFiltering = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    filterValue(value);
-  };
+export default function Filter() {
+  const setFilter = useStore((state) => state.setFilter);
 
   return (
     <>
       <select
-        onChange={setFiltering}
+        onChange={(e) => setFilter(e.currentTarget.value)}
         name="filter"
         id="filter-select"
         className="border small-el shadow"

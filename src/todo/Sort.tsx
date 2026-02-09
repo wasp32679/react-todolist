@@ -1,16 +1,13 @@
-import type { SortProps } from '../types/todo';
+import { useStore } from '../store';
 import './Sort.css';
 
-export default function SortBy({ sortValue }: SortProps) {
-  const setSorting = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    sortValue(value);
-  };
+export default function SortBy() {
+  const setSort = useStore((state) => state.setSort);
 
   return (
     <>
       <select
-        onChange={setSorting}
+        onChange={(e) => setSort(e.currentTarget.value)}
         name="sort"
         id="sort-select"
         className="border small-el shadow"

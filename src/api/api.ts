@@ -70,12 +70,7 @@ export async function deleteTodoFromApi(todoId: string) {
 
 export async function editTodoInApi(
   todoId: string,
-  updates: {
-    title?: string;
-    content?: string;
-    due_date?: string;
-    done?: boolean;
-  },
+  updates: Partial<ReadTodo>,
 ) {
   try {
     const resp = await fetch(`${url}?id=eq.${todoId}`, {
@@ -86,9 +81,9 @@ export async function editTodoInApi(
       },
       body: JSON.stringify(updates),
     });
-    //if (!resp.ok) {
-    throw new Error(`Failed to edit task ${resp.status}`);
-    //}
+    if (!resp.ok) {
+      throw new Error(`Failed to edit task ${resp.status}`);
+    }
 
     const data: ReadTodo[] = await resp.json();
     const updatedTodo = data[0];

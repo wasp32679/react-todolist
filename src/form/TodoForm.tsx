@@ -1,16 +1,17 @@
 import './TodoForm.css';
 import { useActionState } from 'react';
-import { addTodoToApi } from '../api/api';
 import type { TodoFormProps } from '../types/todo';
 import { useErrorBoundary } from 'react-error-boundary';
+import { useStore } from '../store';
 
-export default function TodoForm({ setTodos, setIsOpen }: TodoFormProps) {
+export default function TodoForm({ setIsOpen }: TodoFormProps) {
+  const addTodo = useStore((state) => state.addTodo);
   const { showBoundary } = useErrorBoundary();
+
   const [state, action, pending] = useActionState(
     async (_: unknown, formData: FormData) => {
       try {
-        const newTodo = await addTodoToApi(formData);
-        setTodos((prevTodos) => [...prevTodos, newTodo]);
+        await addTodo(formData);
         setIsOpen(false);
         return 'Todo added !';
       } catch (err) {
