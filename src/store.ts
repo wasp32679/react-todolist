@@ -70,16 +70,9 @@ export const useStore = create<TodoState>((set) => ({
     }
   },
   deleteAllTodo: async () => {
-    try {
-      await deleteAllTodosFromApi();
+    await deleteAllTodosFromApi();
 
-      set((state) => ({
-        todos: (state.todos = []),
-      }));
-    } catch (err) {
-      set({ errorMsg: err });
-      throw err;
-    }
+    set({ todos: [] });
   },
 }));
 

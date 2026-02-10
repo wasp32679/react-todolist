@@ -1,10 +1,10 @@
-import './OpenAddTodoFormButton.css';
-import TodoForm from '../form/TodoForm';
+import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import Overlay from '../components/Overlay';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../components/ErrorsManagment';
-import { useState } from 'react';
+import Overlay from '../components/Overlay';
+import TodoForm from '../form/TodoForm';
+import './OpenAddTodoFormButton.css';
 
 export default function OpenAddTodoFormBtn() {
   const [isOpen, setIsOpen] = useState(false);

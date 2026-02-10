@@ -1,31 +1,34 @@
+import { useCallback, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ErrorBoundary } from 'react-error-boundary';
-import ErrorFallback from '../components/ErrorsManagment';
-import Overlay from '../components/Overlay';
-import './DeleteAllTodosButton.css';
-import { useState } from 'react';
 import { useErrorBoundary } from 'react-error-boundary';
+import Overlay from '../components/Overlay';
 import { useStore } from '../store';
+import './DeleteAllTodosButton.css';
 
 export default function DeleteAllTodosBtn() {
   const [isOpen, setIsOpen] = useState(false);
   const { showBoundary } = useErrorBoundary();
-  const deleteAllTodosFromApi = useStore((state) => state.deleteAllTodo);
+  const deleteAllTodos = useStore((state) => state.deleteAllTodo);
 
-  async function deleteAllTodos() {
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
+  const handleDeleteAll = useCallback(async () => {
     try {
-      await deleteAllTodosFromApi();
-      setIsOpen(false);
+      await deleteAllTodos();
+      handleClose();
     } catch (err) {
       showBoundary(err);
     }
-  }
+  }, [deleteAllTodos, handleClose, showBoundary]);
 
   return (
     <>
       <button
         className="border small-el delete-btn shadow"
-        onClick={() => setIsOpen(true)}
+        onClick={handleOpen}
       >
         Delete All
       </button>
@@ -33,23 +36,21 @@ export default function DeleteAllTodosBtn() {
       {isOpen &&
         createPortal(
           <div>
-            <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Overlay onClick={() => setIsOpen(false)} />
-              <div className="buttons-container form-index shadow border">
-                <button
-                  className="border shadow action-btn red"
-                  onClick={() => deleteAllTodos()}
-                >
-                  Confirm
-                </button>
-                <button
-                  className="border shadow action-btn"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Cancel
-                </button>
-              </div>
-            </ErrorBoundary>
+            <Overlay onClick={handleClose} />
+            <div className="buttons-container form-index shadow border">
+              <button
+                className="border shadow action-btn red"
+                onClick={handleDeleteAll}
+              >
+                Confirm
+              </button>
+              <button
+                className="border shadow action-btn"
+                onClick={handleClose}
+              >
+                Cancel
+              </button>
+            </div>
           </div>,
           document.body,
         )}

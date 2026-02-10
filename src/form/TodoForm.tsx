@@ -1,8 +1,8 @@
-import './TodoForm.css';
 import { useActionState } from 'react';
-import type { TodoFormProps } from '../types/todo';
 import { useErrorBoundary } from 'react-error-boundary';
 import { useStore } from '../store';
+import type { TodoFormProps } from '../types/todo';
+import './TodoForm.css';
 
 export default function TodoForm({ setIsOpen }: TodoFormProps) {
   const addTodo = useStore((state) => state.addTodo);

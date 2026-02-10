@@ -3,7 +3,7 @@
 }
 
 .delete-btn:hover {
-  background-color: rgb(253, 58, 58);
+  background-color: var(--color-danger);
 }
 
 .buttons-container {
@@ -22,6 +22,6 @@
 }
 
 .red {
-  background-color: rgb(255, 67, 67);
+  background-color: var(--color-danger);
   color: white;
 }
