@@ -5,6 +5,7 @@ import {
   deleteTodoFromApi,
   editTodoInApi,
   fetchTodosFromApi,
+  deleteAllTodosFromApi,
 } from './api/api';
 
 interface TodoState {
@@ -19,6 +20,7 @@ interface TodoState {
   addTodo: (formData: FormData) => Promise<void>;
   editTodo: (todoId: string, updates: Partial<ReadTodo>) => Promise<void>;
   deleteTodo: (todoId: string) => Promise<void>;
+  deleteAllTodo: () => Promise<void>;
   errorMsg: unknown | null;
   setErrorMsg: (error: unknown | null) => void;
 }
@@ -61,6 +63,18 @@ export const useStore = create<TodoState>((set) => ({
 
       set((state) => ({
         todos: state.todos.filter((t) => t.id !== todoId),
+      }));
+    } catch (err) {
+      set({ errorMsg: err });
+      throw err;
+    }
+  },
+  deleteAllTodo: async () => {
+    try {
+      await deleteAllTodosFromApi();
+
+      set((state) => ({
+        todos: (state.todos = []),
       }));
     } catch (err) {
       set({ errorMsg: err });

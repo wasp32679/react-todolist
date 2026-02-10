@@ -61,7 +61,7 @@ textarea:focus {
   border-radius: 10px;
 }
 
-.top-controls {
+.horizontal-div {
   display: flex;
   justify-content: space-between;
 }

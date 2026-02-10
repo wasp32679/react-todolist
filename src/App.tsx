@@ -19,15 +19,15 @@ export default function App() {
   return (
     <div className="app-section">
       <h1>TODO APP</h1>
-      <div className="top-controls">
+      <div className="horizontal-div">
         <OpenAddTodoFormBtn />
         <Filter />
       </div>
-      <SortBy />
-      <Todolist />
-      <div className="delete-all-wrapper">
+      <div className="horizontal-div">
+        <SortBy />
         <DeleteAllTodosBtn />
       </div>
+      <Todolist />
     </div>
   );
 }
