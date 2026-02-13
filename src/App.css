@@ -1,6 +1,7 @@
 :root {
   --color-background: #ebebeb;
   --color-accent: #ff7e7e;
+  --color-danger: rgb(255, 67, 67);
 }
 
 body {
@@ -61,7 +62,7 @@ textarea:focus {
   border-radius: 10px;
 }
 
-.top-controls {
+.horizontal-div {
   display: flex;
   justify-content: space-between;
 }
@@ -107,6 +108,6 @@ h1 {
 }
 
 .error-txt {
-  color: red;
+  color: var(--color-danger);
   margin-bottom: 5px;
 }

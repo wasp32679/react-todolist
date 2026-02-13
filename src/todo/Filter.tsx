@@ -1,5 +1,5 @@
-import './Filter.css';
 import { useStore } from '../store';
+import './Filter.css';
 
 export default function Filter() {
   const setFilter = useStore((state) => state.setFilter);

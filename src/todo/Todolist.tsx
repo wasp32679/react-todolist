@@ -1,8 +1,8 @@
-import './Todolist.css';
-import TodoItem from './TodoItem';
+import { useShallow } from 'zustand/shallow';
 import ErrorFallback from '../components/ErrorsManagment';
 import { getSortedTodos, useStore } from '../store';
-import { useShallow } from 'zustand/shallow';
+import TodoItem from './TodoItem';
+import './Todolist.css';
 
 function TodoDisplay() {
   const { errorMsg, setErrorMsg } = useStore(

@@ -94,3 +94,21 @@ export async function editTodoInApi(
     throw error;
   }
 }
+
+export async function deleteAllTodosFromApi() {
+  try {
+    const resp = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+      },
+    });
+
+    if (!resp.ok) {
+      throw new Error(`Failed to clear all tasks: ${resp.status}`);
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

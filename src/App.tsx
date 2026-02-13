@@ -6,6 +6,8 @@ import Todolist from './todo/Todolist';
 import DeleteAllTodosBtn from './todo/DeleteAllTodosButton';
 import { use, useEffect } from 'react';
 import { useStore } from './store';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from './components/ErrorsManagment';
 
 export default function App() {
   const todoPromise = useStore((state) => state.todoPromise);
@@ -19,15 +21,17 @@ export default function App() {
   return (
     <div className="app-section">
       <h1>TODO APP</h1>
-      <div className="top-controls">
+      <div className="horizontal-div">
         <OpenAddTodoFormBtn />
         <Filter />
       </div>
-      <SortBy />
-      <Todolist />
-      <div className="delete-all-wrapper">
-        <DeleteAllTodosBtn />
+      <div className="horizontal-div">
+        <SortBy />
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <DeleteAllTodosBtn />
+        </ErrorBoundary>
       </div>
+      <Todolist />
     </div>
   );
 }

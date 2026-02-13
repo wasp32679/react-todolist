@@ -1,8 +1,8 @@
-import trash from '../assets/trash-bin.png';
-import './TodoItem.css';
 import { useState } from 'react';
+import trash from '../assets/trash-bin.png';
 import Editable from '../components/Editable';
 import { useStore } from '../store';
+import './TodoItem.css';
 
 interface TodoItemProps {
   title: string;

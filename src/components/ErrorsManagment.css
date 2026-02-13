@@ -5,9 +5,9 @@
   padding: 10px;
   font-size: large;
   border-radius: 20px;
-  color: red;
+  color: var(--color-danger);
   background-color: white;
-  border: 2px solid red;
+  border: 2px solid var(--color-danger);
   width: 30vw;
 }
 
@@ -16,7 +16,7 @@
 }
 
 .error-div button {
-  border-color: red;
+  border-color: var(--color-danger);
 }
 
 .error-index {
