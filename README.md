@@ -11,7 +11,7 @@ This is a simple application I made to learn React basics. It lets you manage yo
 
 ## Setup
 
-make sure you have `pnpm` installed.
+Make sure you have `pnpm` installed.
 
 Install the dependencies:
 
